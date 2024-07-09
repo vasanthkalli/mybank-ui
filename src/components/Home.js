@@ -27,7 +27,7 @@ function Home() {
               News
             </Typography>
             <Link to="/login" style={{ textDecoration: 'none' , color: 'white'}}>
-              <Typography variant='h6' component="div">Login</Typography>  
+              <Typography variant='h6' component="div">Log on</Typography>  
             </Link>
           </Toolbar>
         </AppBar>
