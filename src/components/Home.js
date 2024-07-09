@@ -12,7 +12,7 @@ function Home() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" style={{backgroundColor: '#006A4D'}}>
           <Toolbar>
             <IconButton
               size="large"
