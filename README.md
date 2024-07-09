@@ -68,3 +68,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+------------------------------------------
+
+Project specific:
+
+1. To install mui run following command
+
+  npm install @mui/material @emotion/react @emotion/styled
+2. To install robo-font
+  
+   npm install @fontsource/roboto
+
+3.Install Icons 
+
+ npm install @mui/icons-material
+
+4. install react-router-dom for navigation
+
+npm i react-router-dom
