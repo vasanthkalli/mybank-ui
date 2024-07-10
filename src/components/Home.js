@@ -7,32 +7,44 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+import NavBar from './NavBar';
+import backgroundimage  from './BackgroundImage.png';
+import { autocompleteClasses, Card, CardMedia } from '@mui/material';
+import { AspectRatio, Padding, Style } from '@mui/icons-material';
+
+const myStyle = {
+  backgroundImage:
+      "url('./BackgroundImage.png')",
+  height: "91vh",
+  position: "center",
+  marginTop: "-7px",
+  fontSize: "50px",
+  padding: "0",
+  width: 'auto',
+  display: 'flex',
+  maxwidth: '600',
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat",
+};
 
 function Home() {
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{backgroundColor: '#006A4D'}}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
-            </Typography>
-            <Link to="/login" style={{ textDecoration: 'none' , color: 'white'}}>
-              <Typography variant='h6' component="div">Log on</Typography>  
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    );
+          <Box >
+            <NavBar />
+            <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+            <Card>
+              <div style={{ position: "relative" }}>
+              <CardMedia style={myStyle}   component="img" image={backgroundimage} title="Background" alt="Lloyds Background"/>
+              <div style={{position: "absolute", color: "#FFFAFA",top: 10,left: "10%",transform: "translateX(-50%)", paddingLeft: '50%', paddingTop: '10%'}}> 
+                <Typography variant='h3' fontWeight='bold'>Welcome to Club Lloyds</Typography>
+                <Typography variant='h5' >The inclusive current account with exclusive benefits.</Typography>
+              </div>
+              </div>
+            </Card>
+            </Box>
+          </Box>
+        )
 }
 
 export default Home;
