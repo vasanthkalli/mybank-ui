@@ -7,17 +7,16 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { ThemeProvider } from '@mui/material';
-import { theme } from './components/theme';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store}>
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-       <App />
-    </ThemeProvider>
-    
+    <App />
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

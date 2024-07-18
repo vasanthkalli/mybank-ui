@@ -11,11 +11,52 @@ import {
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import { CheckBox } from '@mui/icons-material';
-import Footer from './footer/Footer';
-import Header from './header/Header';
+import Footer from '../footer/Footer';
+import Header from '../header/Header';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {setLoggedInUser,setLoginStatus, setLoginSubmitted} from './loginSlice'
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
 
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const loginStatus = useSelector(state => state.loginReducer.loginSuccess)
+
+    const loginSubmitted = useSelector(state => state.loginReducer.loginSubmitted)
+
+    const [username, setusername] = React.useState('');
+    const [password, setpassword] = React.useState('');
+
+     const handleUsername = (e) => {
+      setusername(e.target.value);
+      }
+
+      const handlePassword = (e) => {
+        setpassword(e.target.value);
+      }
+
+    const handleLogin = () => {
+       let  user = axios.post('http://34.131.40.139')
+       user  =  {
+        username: '',
+        token:'',
+        expiryToken: ''
+      }
+       dispatch(setLoginSubmitted(true))
+       if(username === 'vasanth' && password == 'vasanth') {
+        dispatch(setLoginStatus(true))
+        dispatch(setLoggedInUser(user))
+        navigate(`/dashboard`)
+       } else {
+        dispatch(setLoginStatus(false))
+       }
+     
+   
+    }
 
     return (
         <div>
@@ -27,10 +68,14 @@ function Login() {
                             <Typography variant='h3' component='p'>Welcome to Internet Banking</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id='userid' name='userid' variant='outlined' label='username' required />
+                            <TextField id='userid' name='userid' variant='outlined' label='username' required style={{width:'50%'}}
+                              onChange={handleUsername} value={username}
+                            />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type='password' id='password' name='password' label='password' variant='outlined' required />
+                            <TextField type='password' id='password' name='password' label='password' variant='outlined' required style={{width:'50%'}}
+                            onChange={handlePassword} value={password}
+                            />
                         </Grid>
                         <Grid item xs={12} style={{ marginBottom: 2, paddingBottom: 2 }}>
                             <FormControlLabel
@@ -46,7 +91,7 @@ function Login() {
                             <Typography>Warning: Don’t tick this box if you’re using a public or shared computer</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant='outlined'>Login</Button>
+                            <Button variant={loginSubmitted ? 'outlined' :'contained' } onClick={handleLogin}>Login</Button>
                         </Grid>
                     </Grid>
                 </Grid>

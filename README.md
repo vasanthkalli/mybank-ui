@@ -88,3 +88,13 @@ Project specific:
 4. install react-router-dom for navigation
 
 npm i react-router-dom
+
+5. install axios
+
+npm i axios
+
+6. install redux toolkit, react-redux
+
+ npm install @reduxjs/toolkit
+
+ npm install react-redux

@@ -1,0 +1,12 @@
+#header-links ul{
+    list-style: none;
+}
+
+#header-links li{
+    display: inline;
+    margin: 5px
+}
+
+#header-links a{
+    color: #FFF;
+}
