@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-// import NavBar from './NavBar';
+ import NavBar from './NavBar';
 import backgroundimage  from './BackgroundImage.png';
 import { autocompleteClasses, Card, CardMedia } from '@mui/material';
 import { AspectRatio, Padding, Style } from '@mui/icons-material';
@@ -31,7 +31,7 @@ function Home() {
 
     return (
           <Box >
-            {/* <NavBar /> */}
+            <NavBar /> 
             <Box sx={{ width: '100%', overflowX: 'hidden' }}>
             <Card>
               <div style={{ position: "relative" }}>
