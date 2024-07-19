@@ -14,16 +14,29 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import  Grid  from '@mui/material/Grid';
+import './sharedgoal.css'
+import { TextField } from '@mui/material';
 
 const pages = ['Fixed Deposits', 'Recurring Deposits', 'sharedgoals'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export default function Dashboard(){
+export default function Sharedgoal(){
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [goalname, setgoalname] = React.useState('')
+    const [targetamount, settargetamount] = React.useState(0)
 
     const navigate = useNavigate();
+
+    const goal = {
+      name: 'goalname',
+      targetAmount: 10000,
+
+    }
+
+    const [existinggoals, setExistinggoals] = React.useState([])
+
 
 
     const loggedInUser = useSelector(state => state.loginReducer.loggedInUser)
@@ -36,16 +49,22 @@ export default function Dashboard(){
     };
   
     const handleCloseNavMenu = (page) => {
-      console.log(page)
        navigate(`/${page}`)
     };
   
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+
+    const createGoal = () => {
+         
+        setTimeout(()=>{
+          navigate('/creategoal', 5000)
+        })
+    }
   
     return (
-      <div>
+        <div>
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -127,7 +146,7 @@ export default function Dashboard(){
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={() => handleCloseNavMenu(page)}
+                  onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {page}
@@ -168,8 +187,18 @@ export default function Dashboard(){
           </Toolbar>
         </Container>
       </AppBar>
+            <Grid id='sharedgoal-body' Container>
+              <Grid item style={{margin: '20px'}}>
+               Existing Goals
+              </Grid>
+                <Grid item>
+                    <Button onClick={createGoal} variant='contained'>
+                       Create Goal
+                    </Button>
+                </Grid>
 
+              </Grid>
       </div>
-      
     );
 }
+

@@ -40,9 +40,9 @@ function Login(props) {
       }
 
     const handleLogin = () => {
-       let  user = axios.post('http://34.131.40.139')
+       let  user ;
        user  =  {
-        username: '',
+        username: 'vasanth',
         token:'',
         expiryToken: ''
       }
@@ -50,7 +50,7 @@ function Login(props) {
        if(username === 'vasanth' && password == 'vasanth') {
         dispatch(setLoginStatus(true))
         dispatch(setLoggedInUser(user))
-        navigate(`/dashboard`)
+       setTimeout(navigate('/dashboard'), 5000)
        } else {
         dispatch(setLoginStatus(false))
        }
