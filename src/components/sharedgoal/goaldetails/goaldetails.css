@@ -1,4 +1,14 @@
 #goaldetails-outerdiv{
 
     margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+#top-container{
+    align-items: center;
+    justify-content: center;
+}
+

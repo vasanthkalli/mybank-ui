@@ -228,7 +228,8 @@ export default function CreateGoal() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box sx={{ width:"90%" }} style = {{marginTop: '70px',  marginLeft: '20px', marginRight: '20px'}}>
+
+            <Box sx={{ width: "90%" }} style={{ marginTop: '70px', marginLeft: '20px', marginRight: '20px' }}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
@@ -248,73 +249,78 @@ export default function CreateGoal() {
                         );
                     })}
                 </Stepper>
-                {activeStep === steps.length ? (
-                    <React.Fragment>
-                        <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
-                        </Typography>
-                        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                            <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleReset}>Reset</Button>
-                        </Box>
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <div>
-                            <Grid container>
-                                <Grid item>
-                                    {activeStep + 1 == 1 ? (
 
-                                        <div style={{marginTop: '30px'}}>
 
-                                            <GoalSelection goals={goals}/>
-                                        </div>
-                                    ) : (null)}
-                                    {activeStep + 1 == 2 ? (
 
-                                        <div>
-
-                                            <GoalDetails goals={goals} />
-                                        </div>
-                                    ) : (null)}
-
-                                    {activeStep + 1 == 3 ? (
-
-                                        <div>
-
-                                            <AddMember goals={goals} />
-                                        </div>
-                                    ) : (null)}
-                                </Grid>
-
+                {
+                    activeStep === steps.length ? (
+                        <Grid container alignItems={'center'} justifyContent={'center'}>
+                            <Grid item>
+                                <React.Fragment>
+                                    <Typography sx={{ mt: 2, mb: 1 }}>
+                                        All steps completed - you&apos;re finished
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                        <Box sx={{ flex: '1 1 auto' }} />
+                                        <Button onClick={handleReset}>Reset</Button>
+                                    </Box>
+                                </React.Fragment>
                             </Grid>
-                            <Typography sx={{ mt: 2, mb: 1 }}>
+                        </Grid>
+                    ) : (
+                        <React.Fragment>
+                            <div>
+                                <Grid container alignItems={'center'} justifyContent={'center'}>
+                                    <Grid item>
+                                        {activeStep + 1 == 1 ? (
+
+                                            <div style={{ marginTop: '30px' }}>
+
+                                                <GoalSelection goals={goals} />
+                                            </div>
+                                        ) : (null)}
+                                        {activeStep + 1 == 2 ? (
+
+                                            <div>
+
+                                                <GoalDetails goals={goals} />
+                                            </div>
+                                        ) : (null)}
+
+                                        {activeStep + 1 == 3 ? (
+
+                                            <div>
+
+                                                <AddMember goals={goals} />
+                                            </div>
+                                        ) : (null)}
+                                    </Grid>
+
+                                </Grid>
+                                <Typography sx={{ mt: 2, mb: 1 }}>
 
 
-                            </Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                <Button
-                                    color="inherit"
-                                    disabled={activeStep === 0}
-                                    onClick={handleBack}
-                                    sx={{ mr: 1 }}
-                                >
-                                    Back
-                                </Button>
-                                <Box sx={{ flex: '1 1 auto' }} />
-                                {/* {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )} */}
+                                </Typography>
+                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                                    <Button
+                                        color="inherit"
+                                        disabled={activeStep === 0}
+                                        onClick={handleBack}
+                                        sx={{ mr: 1 }}
+                                    >
+                                        Back
+                                    </Button>
+                                    <Box sx={{ flex: '1 1 auto' }} />
+                                    <Button onClick={handleNext}>
+                                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                    </Button>
+                                </Box>
+                            </div>
+                        </React.Fragment>
+                    )
+                }
 
-                                <Button onClick={handleNext}>
-                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                </Button>
-                            </Box>
-                        </div>
-                    </React.Fragment>
-                )}
+
             </Box>
         </div>
     );

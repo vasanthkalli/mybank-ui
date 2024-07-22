@@ -24,12 +24,16 @@ export default function GoalDetails() {
 
     const [switchMonthlyContri, setswitchMonthlyContri] = useState(true)
 
-    const [monthlyContribution, setMonthyContribution] = useState(targetAmount/12)
+    const [monthlyContribution, setMonthyContribution] = useState(targetAmount / 12)
 
     const [totalInterest, setTotalInterest] = useState();
 
+    const [goalNameError, setGoalNameError] = useState(false)
 
-    useEffect(()=> {
+    const [targetAmountError, setTargetAmountErrot] = useState(false)
+
+
+    useEffect(() => {
         caalculateMonthyContribution();
     }, [selecedMonths, targetAmount])
 
@@ -56,7 +60,19 @@ export default function GoalDetails() {
 
 
     const setLooksGood = () => {
-        setProceed(true)
+     
+        console.log('target amount', targetAmount)
+
+        if(goalName.length ==0){
+            setGoalNameError(true)
+            setProceed(false)
+        } else if(targetAmount==undefined || targetAmount < 5000){
+            setTargetAmountErrot(true)
+            setProceed(false)
+        } else{
+            setProceed(true)
+        }
+        
     }
 
     const valueText = (value) => {
@@ -71,47 +87,53 @@ export default function GoalDetails() {
     }
 
     const caalculateMonthyContribution = () => {
-        let monthyContributionAmount = targetAmount/selecedMonths
+        let monthyContributionAmount = targetAmount / selecedMonths
         setMonthyContribution(monthyContributionAmount)
         calculateInterest();
     }
 
     const calculateInterest = () => {
-       let monthlyInterestRate = interestRate/12;
-       let interest = (targetAmount * selecedMonths * monthlyInterestRate)/100;
-       setTotalInterest(interest)
+        let monthlyInterestRate = interestRate / 12;
+        let interest = (targetAmount * selecedMonths * monthlyInterestRate) / 100;
+        setTotalInterest(interest)
     }
 
- 
+
 
     return (
         <div id="goaldetails-outerdiv">
-            <h5 style={{textAlign:'center'}}>Selected Goal is {goalSelected}</h5>
+            <h5 style={{ textAlign: 'center' }}>Selected Goal is {goalSelected}</h5>
             <Grid container id="top-container">
-                <Grid item>
+                {!proceed ? (<Grid item>
                     <Grid container flexDirection={"column"} spacing={2}>
                         <Grid item>
-                            <TextField value={goalName} label='Goal name' onChange={handlegoalName} onBlur={handlesendingNameToStore} required></TextField>
+                            <TextField value={goalName} label='Goal name' onChange={handlegoalName} onBlur={handlesendingNameToStore} required
+                              error = {goalNameError}
+                            ></TextField>
 
                         </Grid>
 
                         <Grid item>
-                            <TextField value={targetAmount} label='Target Amount' onChange={handleTargetAmount} required></TextField>
+                            <TextField value={targetAmount} label='Target Amount' onChange={handleTargetAmount} required type="number"
+                              error = {targetAmountError} helperText='must be greater than 4999'
+                            ></TextField>
                         </Grid>
-
+                    </Grid>
+                    <Grid container flexDirection={"row"} spacing={2} style={{marginTop:'8px'}}>
                         <Grid item>
-                            <Button onClick={resetGoal}>Cancel</Button>
+                            <Button onClick={resetGoal}>Clear</Button>
                         </Grid>
                         <Grid item>
                             <Button onClick={setLooksGood}>Proceed</Button>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid>) : null
+                }
                 {proceed ? (<Grid item>
                     <Grid container>
                         <Grid item>
-                            <Typography variant="h6">You invest { targetAmount - totalInterest}</Typography>
-                            <Typography variant="h6">You Get {targetAmount  }</Typography>
+                            <Typography variant="h6">You invest {targetAmount - totalInterest}</Typography>
+                            <Typography variant="h6">You Get {targetAmount}</Typography>
                         </Grid>
                         <Grid item>
                             <Typography>Select the number of months you need to fullfill your goal</Typography>
@@ -130,8 +152,8 @@ export default function GoalDetails() {
                                 (
 
                                     <Grid item>
-                                          <Typography>Your Monthly Contribution amount will be {monthlyContribution}</Typography>
-                                          {console.log('monthly contribution'+monthlyContribution)}
+                                        <Typography>Your Monthly Contribution amount will be {monthlyContribution}</Typography>
+                                        {console.log('monthly contribution' + monthlyContribution)}
                                     </Grid>
 
                                 ) :
@@ -140,7 +162,7 @@ export default function GoalDetails() {
                         }
 
                     </Grid>
-                  
+
                 </Grid>) : null
                 }
             </Grid>
