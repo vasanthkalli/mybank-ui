@@ -3,7 +3,7 @@ import { Grid, Slider, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { setGoalName, setTargetAmount } from "../sharedgoalSlice";
 import { Button, Switch, FormControlLabel } from "@mui/material";
-
+import './goaldetails.css'
 
 
 export default function GoalDetails() {
@@ -24,13 +24,15 @@ export default function GoalDetails() {
 
     const [switchMonthlyContri, setswitchMonthlyContri] = useState(true)
 
-    const [monthlyContribution, setMonthyContribution] = useState()
+    const [monthlyContribution, setMonthyContribution] = useState(targetAmount/12)
 
-    const [amountToInvest, setAmountToInvest] = useState()
+    const [totalInterest, setTotalInterest] = useState();
+
 
     useEffect(()=> {
         caalculateMonthyContribution();
-    }, [selecedMonths])
+    }, [selecedMonths, targetAmount])
+
 
     const handlegoalName = (e) => {
         setGoalNameState(e.target.value)
@@ -68,33 +70,26 @@ export default function GoalDetails() {
 
     }
 
-    const calculateInterest = () => {
-        let i = (targetAmount * selecedMonths * interestRate)/100;
-        console.log('interest amount'+ i)
-        return i;
-    }
-
-    const calculateAmountTobeInvested = () => {
-        let interest = calculateInterest();
-        let amountToInvest =  targetAmount - interest;
-        setAmountToInvest(amountToInvest)
-        console.log('amount tobe invested'+ amountToInvest)
-        return amountToInvest;
-    }
-
     const caalculateMonthyContribution = () => {
-        let totalAmountTobeInevsted = calculateAmountTobeInvested();
-        let monthyContributionAmount = totalAmountTobeInevsted/selecedMonths;
-        console.log('Monthly contribution'+ monthlyContribution)
+        let monthyContributionAmount = targetAmount/selecedMonths
         setMonthyContribution(monthyContributionAmount)
+        calculateInterest();
     }
+
+    const calculateInterest = () => {
+       let monthlyInterestRate = interestRate/12;
+       let interest = (targetAmount * selecedMonths * monthlyInterestRate)/100;
+       setTotalInterest(interest)
+    }
+
+ 
 
     return (
-        <div>
-            Selected Goal is {goalSelected}
+        <div id="goaldetails-outerdiv">
+            <h5 style={{textAlign:'center'}}>Selected Goal is {goalSelected}</h5>
             <Grid container id="top-container">
                 <Grid item>
-                    <Grid container>
+                    <Grid container flexDirection={"column"} spacing={2}>
                         <Grid item>
                             <TextField value={goalName} label='Goal name' onChange={handlegoalName} onBlur={handlesendingNameToStore} required></TextField>
 
@@ -115,8 +110,8 @@ export default function GoalDetails() {
                 {proceed ? (<Grid item>
                     <Grid container>
                         <Grid item>
-                            <Typography variant="h6">You invest { }</Typography>
-                            <Typography variant="h6">You Get { }</Typography>
+                            <Typography variant="h6">You invest { targetAmount - totalInterest}</Typography>
+                            <Typography variant="h6">You Get {targetAmount  }</Typography>
                         </Grid>
                         <Grid item>
                             <Typography>Select the number of months you need to fullfill your goal</Typography>

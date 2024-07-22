@@ -98,3 +98,5 @@ npm i axios
  npm install @reduxjs/toolkit
 
  npm install react-redux
+
+ npm install @mui/x-data-grid -> for data grid
