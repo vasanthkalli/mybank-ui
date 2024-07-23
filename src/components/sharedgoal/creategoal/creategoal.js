@@ -21,10 +21,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useSelector } from 'react-redux';
+import GoalSummary from '../goalSummary/goalSummary';
+import MainHeader from '../../mainheader/mainheader';
 
 
 
-const steps = ['Select Category', 'Enter Goal Details', 'Add Members'];
+const steps = ['Select Goal Category', 'Enter Goal Details', 'Add Members', 'Goal Summary'];
 const pages = ['Fixed Deposits', 'Recurring Deposits', 'sharedgoals'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -41,6 +43,8 @@ export default function CreateGoal() {
 
     const navigate = useNavigate();
     const loggedInUser = useSelector(state => state.loginReducer.loggedInUser)
+    const proceed = useSelector(state => state.sharedGoalReducer.proceed)
+    const isMemberAdded = useSelector(state => state.sharedGoalReducer.IsmemberAdded)
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -74,6 +78,10 @@ export default function CreateGoal() {
 
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setSkipped(newSkipped);
+
+        if(activeStep === steps.length) {
+            //send request to backend
+        }
     };
 
     const handleBack = () => {
@@ -106,130 +114,9 @@ export default function CreateGoal() {
 
     return (
         <div>
-            <AppBar position="static">
-                <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            LOGO
-                        </Typography>
+          <MainHeader/>
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleOpenNavMenu}
-                                color="inherit"
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorElNav}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'left',
-                                }}
-                                open={Boolean(anchorElNav)}
-                                onClose={handleCloseNavMenu}
-                                sx={{
-                                    display: { xs: 'block', md: 'none' },
-                                }}
-                            >
-                                {pages.map((page) => (
-                                    <MenuItem key={page} onClick={() => handleCloseNavMenu(page)}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
-                            sx={{
-                                mr: 2,
-                                display: { xs: 'flex', md: 'none' },
-                                flexGrow: 1,
-                                fontFamily: 'monospace',
-                                fontWeight: 700,
-                                letterSpacing: '.3rem',
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
-                            LOGO
-                        </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
-                                <Button
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page}
-                                </Button>
-                            ))}
-                        </Box>
-
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt={loggedInUser.username} src="/static/images/avatar/2.jpg" />
-
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                    </Toolbar>
-                </Container>
-            </AppBar>
-
-            <Box sx={{ width: "90%" }} style={{ marginTop: '70px', marginLeft: '20px', marginRight: '20px' }}>
+            <Box sx={{ width: "90%" }} style={{ marginTop: '70px', marginLeft: '20px', marginRight: '20px', marginBottom: '10px' }}>
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
@@ -258,7 +145,8 @@ export default function CreateGoal() {
                             <Grid item>
                                 <React.Fragment>
                                     <Typography sx={{ mt: 2, mb: 1 }}>
-                                        All steps completed - you&apos;re finished
+                                        All steps completed - you successfully created a Goal.
+                                        The members you added will recieve email notification
                                     </Typography>
                                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                         <Box sx={{ flex: '1 1 auto' }} />
@@ -282,18 +170,23 @@ export default function CreateGoal() {
                                         {activeStep + 1 == 2 ? (
 
                                             <div>
-
-                                                <GoalDetails goals={goals} />
+                                                     <GoalDetails goals={goals} />
+                                               
                                             </div>
                                         ) : (null)}
 
                                         {activeStep + 1 == 3 ? (
 
                                             <div>
-
-                                                <AddMember goals={goals} />
+                                        
+                                             <AddMember goals={goals} />
                                             </div>
                                         ) : (null)}
+                                        {
+                                            activeStep +1 == 4 ? (
+                                                <GoalSummary/>
+                                            ):null
+                                        }
                                     </Grid>
 
                                 </Grid>
@@ -311,7 +204,7 @@ export default function CreateGoal() {
                                         Back
                                     </Button>
                                     <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleNext}>
+                                    <Button onClick={handleNext} disabled={(!proceed && activeStep===1) || (!isMemberAdded && activeStep ===2) }>
                                         {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                     </Button>
                                 </Box>

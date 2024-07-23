@@ -9,8 +9,11 @@ import Dashboard from './components/dashboard/dashboard'
 import Sharedgoal from './components/sharedgoal/sharedgoal';
 import CreateGoal from './components/sharedgoal/creategoal/creategoal';
 
-function App() {
+import { useSelector } from 'react-redux';
 
+function App() {
+ 
+  const userLoggedIn = useSelector(state => state.loginReducer.loginSuccess)
 
   return (
     <BrowserRouter>
@@ -18,12 +21,13 @@ function App() {
       <Route path="/" element={<Home />}/>
       <Route path="/login" element={<Login />} />
       <Route path="/profile" element={<Profile/>}/>
-      <Route path="/dashboard" element={<Dashboard/>}/>
-      <Route path="/sharedgoals" element={<Sharedgoal/>}/>
-      <Route path="/creategoal" element = {<CreateGoal/>}/>
+      {userLoggedIn ?   <Route path="/dashboard" element={<Dashboard/>} />: null}
+      {userLoggedIn ? <Route path="/sharedgoals" element={<Sharedgoal/>}/>: null}
+      {userLoggedIn ? <Route path="/creategoal" element = {<CreateGoal/>}/>: null}
       <Route path="/*" element={<NoPage />} />
     </Routes>
   </BrowserRouter>
+  
   );
 }
 

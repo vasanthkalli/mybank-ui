@@ -5,8 +5,8 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import {
-     Button, FormControlLabel, Toolbar,
-    Typography, MenuItem, Select, FormControl, InputLabel, Accordion, AccordionSummary, AccordionDetails,
+    Button, FormControlLabel, Toolbar,
+    Typography, MenuItem, Select, FormControl, InputLabel, Accordion, AccordionSummary, AccordionDetails, Snackbar, CircularProgress, Backdrop
 } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -15,7 +15,7 @@ import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import {setLoggedInUser,setLoginStatus, setLoginSubmitted} from './loginSlice'
+import { setLoggedInUser, setLoginStatus, setLoginSubmitted } from './loginSlice'
 import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
@@ -31,50 +31,93 @@ function Login(props) {
     const [username, setusername] = React.useState('');
     const [password, setpassword] = React.useState('');
 
-     const handleUsername = (e) => {
-      setusername(e.target.value);
-      }
+    const [usernameError, setusernameError] = React.useState(false)
+    const [passwordError, setpasswordError] = React.useState(false)
 
-      const handlePassword = (e) => {
+    const [loginMessage, setLoginmessage] = React.useState('')
+    const [openSnackBar, setOpenSnackBAr] = React.useState(false)
+
+    const [validFiels, setValidFields] = React.useState(false)
+
+    const [openBackDrop, setOpenBackdrop] = React.useState(false)
+
+    const handleUsername = (e) => {
+        setusername(e.target.value);
+    }
+
+    const handlePassword = (e) => {
         setpassword(e.target.value);
-      }
+    }
 
     const handleLogin = () => {
-       let  user ;
-       user  =  {
-        username: 'vasanth',
-        token:'',
-        expiryToken: ''
-      }
-       dispatch(setLoginSubmitted(true))
-       if(username === 'vasanth' && password == 'vasanth') {
-        dispatch(setLoginStatus(true))
-        dispatch(setLoggedInUser(user))
-       setTimeout(navigate('/dashboard'), 5000)
-       } else {
-        dispatch(setLoginStatus(false))
-       }
-     
-   
+        if (validateFields()) {
+            setOpenBackdrop(true)
+
+            let user = {
+                username: username,
+                password: password
+            }
+
+            try {
+                // const response =  axios.post("", user)
+                dispatch(setLoginStatus(true))
+                dispatch(setLoggedInUser(user))
+                setTimeout(navigate('/dashboard'), 5000)
+                setOpenBackdrop(false)
+                console.log('Login success!')
+                setOpenSnackBAr(true)
+                setLoginmessage('Login success')
+            } catch (e) {
+                console.log('Something went wrong')
+                setOpenBackdrop(false)
+                setOpenSnackBAr(true)
+                setLoginmessage('Something went wrong!')
+                dispatch(setLoginStatus(false))
+            }
+        }
+
+    }
+
+    const validateFields = () => {
+        if (username.length == 0) {
+            setusernameError(true)
+            setValidFields(false)
+            return false;
+        } else if (password.length == 0) {
+            setpasswordError(true)
+            setValidFields(false)
+            return false;
+        } else {
+            setValidFields(true)
+            return true;
+        }
+    }
+
+    const handleCloseSnackBar = () => {
+
+    }
+
+    const handleCloseBackDrop = () => {
+
     }
 
     return (
         <div>
-        <Header/>
-            <Grid container id='topcontainer' flexDirection={'row'} spacing={0} style={{marginTop: 45, marginBottom: 10 }}>
-                <Grid item xs={8} style={{paddingLeft: '10%'}}>
+            <Header />
+            <Grid container id='topcontainer' flexDirection={'row'} spacing={0} style={{ marginTop: 45, marginBottom: 10 }}>
+                <Grid item xs={8} style={{ paddingLeft: '10%' }}>
                     <Grid id='maincontainer' container alignItems='center' justifyContent='center' spacing={4}>
                         <Grid item xs={12}>
                             <Typography variant='h3' component='p'>Welcome to Internet Banking</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField id='userid' name='userid' variant='outlined' label='username' required style={{width:'50%'}}
-                              onChange={handleUsername} value={username}
+                            <TextField id='userid' name='userid' variant='outlined' label='username' required style={{ width: '50%' }}
+                                onChange={handleUsername} value={username} error={usernameError}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type='password' id='password' name='password' label='password' variant='outlined' required style={{width:'50%'}}
-                            onChange={handlePassword} value={password}
+                            <TextField type='password' id='password' name='password' label='password' variant='outlined' required style={{ width: '50%' }}
+                                onChange={handlePassword} value={password} error={passwordError}
                             />
                         </Grid>
                         <Grid item xs={12} style={{ marginBottom: 2, paddingBottom: 2 }}>
@@ -91,12 +134,12 @@ function Login(props) {
                             <Typography>Warning: Don’t tick this box if you’re using a public or shared computer</Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Button variant={loginSubmitted ? 'outlined' :'contained' } onClick={handleLogin}>Login</Button>
+                            <Button variant={loginSubmitted ? 'outlined' : 'contained'} onClick={handleLogin}>Login</Button>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={4} >
-                    <Grid container  justifyContent={'center'} flexDirection={'column'}>
+                    <Grid container justifyContent={'center'} flexDirection={'column'}>
                         <Grid item style={{ width: '50%' }}>
                             <div>
                                 <Accordion>
@@ -160,7 +203,20 @@ function Login(props) {
                     </Grid>
                 </Grid>
             </Grid>
-            <Footer/>
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={openSnackBar}
+                onClose={handleCloseSnackBar}
+                message={loginMessage}
+            />
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={openBackDrop}
+                onClick={handleCloseBackDrop}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <Footer />
         </div>
     );
 }
