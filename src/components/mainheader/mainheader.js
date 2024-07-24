@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { setLoginStatus, setLoggedInUser, setLoginSubmitted
 
  } from '../login/loginSlice';
+ import SavingsSharpIcon from '@mui/icons-material/SavingsSharp';
 
 
 const pages = ['Fixed Deposits', 'Recurring Deposits', 'sharedgoals'];
@@ -62,9 +63,11 @@ export default function MainHeader(){
     return (
       <div>
       <AppBar position="static">
-        <Container maxWidth="xl">
+        <Container maxWidth="xxl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+             <IconButton onClick={() => window.open('/')} target="_blank" rel="noopener noreferrer">
+                  <SavingsSharpIcon />
+              </IconButton>
             <Typography
               variant="h6"
               noWrap
@@ -80,8 +83,14 @@ export default function MainHeader(){
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              MyBank
             </Typography>
+            
+            
+    
+    {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        MyBank
+   </Typography> */}
   
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
               <IconButton

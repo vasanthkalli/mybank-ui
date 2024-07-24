@@ -17,17 +17,41 @@ import { useNavigate } from 'react-router-dom';
 import { setLoginStatus, setLoggedInUser, setLoginSubmitted
 
  } from '../login/loginSlice';
+ import { autocompleteClasses, Card, CardMedia } from '@mui/material';
  import MainHeader from '../mainheader/mainheader';
+ import sharedgoalImage  from '../../images/SharedGoal.jpg'
 
 
 const pages = ['Fixed Deposits', 'Recurring Deposits', 'sharedgoals'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const myStyle = {
+  backgroundImage:
+      "url('../images/home-banner.jpg)",
+  height: "93.5vh",
+  position: "center",
+  fontSize: "50px",
+  padding: "0",
+  width: '100%',
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+};
 
 export default function Dashboard(){
  
       return (
         <div>
            <MainHeader/>
+           <Box sx={{ width: '100%', overflowX: 'hidden' }}>
+            <Card>
+              <div style={{ position: "relative" }}>
+              <CardMedia style={myStyle}   component="img" image={sharedgoalImage}  alt="Shared Goal"/>
+              {/* <div style={{position: "absolute", color: "#FFFAFA",top: 10,left: "10%",transform: "translateX(-50%)", paddingLeft: '50%', paddingTop: '10%'}}> 
+                <Typography variant='h3' fontWeight='bold'>Welcome to My Bank</Typography>
+              </div> */}
+              </div>
+            </Card>
+            </Box>
         </div>
       );
       

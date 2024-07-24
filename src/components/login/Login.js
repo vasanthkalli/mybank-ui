@@ -148,7 +148,7 @@ function Login(props) {
                                         aria-controls="panel1-content"
                                         id="panel1-header"
                                     >
-                                        <Typography variant="h6" style={{ color: '#006A4D' }}>Help&Support</Typography>
+                                        <Typography variant="h6" >Help&Support</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography style={{ fontWeight: 'bold', marginBottom: 5 }}>
@@ -170,10 +170,9 @@ function Login(props) {
                                 <Accordion>
                                     <AccordionSummary
                                         expandIcon={<ArrowDropDownIcon />}
-                                        aria-controls="panel2-content"
-                                        id="panel2-header"
+                                        aria-controls="panel2-content" id="panel2-header"
                                     >
-                                        <Typography variant='h6' style={{ color: '#006A4D' }}>Contact Us</Typography>
+                                        <Typography variant='h6'>Contact Us</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography style={{ fontWeight: 'bold', marginBottom: 5 }}>

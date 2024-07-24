@@ -5,7 +5,7 @@ function Footer() {
 
 
     return (
-        <div id="footer" style={{ backgroundColor: '#006A4D' }}>
+        <div id="footer">
             <Grid id="links" container alignItems={"center"} justifyContent={'center'}>
                 <Grid item>
                     <Grid container alignItems={"center"} justifyContent={'center'}>
