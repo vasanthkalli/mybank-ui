@@ -38,8 +38,7 @@ export default function CreateGoal() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [skipped, setSkipped] = React.useState(new Set());
 
-    const goals = [{ key: 10, value: 'Dream Car' }, { key: 20, value: 'Holiday' }, { key: 30, value: 'Gadgets' }, { key: 40, value: 'New Home' },
-    { key: 50, value: 'Celebration' }, { key: 60, value: 'Emergrncy Fund' }]
+    const goals = useSelector(state => state.sharedGoalReducer.goalCategories)
 
     const navigate = useNavigate();
     const loggedInUser = useSelector(state => state.loginReducer.loggedInUser)

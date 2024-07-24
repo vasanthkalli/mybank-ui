@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    goalCategories: [
+       {key: 10, value: 'Dream Car' }, { key: 20, value: 'Holiday' }, { key: 30, value: 'Gadgets' }, { key: 40, value: 'New Home' },
+            { key: 50, value: 'Celebration' }, { key: 60, value: 'Emergrncy Fund' }
+    ],
     selectedGoalCategory: 10,
+    selectedGoalCategoryName: 'Dream Car',
     goalName: '',
     targetAmount: 0,
     proceed: false,
@@ -18,7 +23,9 @@ export const sharedGoalSlice = createSlice({
         setSelectedGoalCategory: (state, action) => {
             state = state.selectedGoalCategory = action.payload
         },
-
+        setSelectedGoalCategoryName: (state, action) => {
+            state = state.selectedGoalCategoryName = action.payload
+        },
         setGoalName: (state, action) => {
             state = state.goalName = action.payload
         },
@@ -44,5 +51,5 @@ export const sharedGoalSlice = createSlice({
     }
 })
 
-export const { setSelectedGoalCategory, setGoalName, setTargetAmount, setProceed, setGoalmembers, setIsMembersAdded, setselectedNumMonths, setinterestRateSelected} = sharedGoalSlice.actions;
+export const { setSelectedGoalCategory, setSelectedGoalCategoryName, setGoalName, setTargetAmount, setProceed, setGoalmembers, setIsMembersAdded, setselectedNumMonths, setinterestRateSelected} = sharedGoalSlice.actions;
 export default sharedGoalSlice.reducer;

@@ -100,3 +100,8 @@ npm i axios
  npm install react-redux
 
  npm install @mui/x-data-grid -> for data grid
+
+ -----------------------------------------
+ deploying into gcp
+
+ 1.enable cloud build API

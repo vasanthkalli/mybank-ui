@@ -7,7 +7,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { setIsMembersAdded, setGoalmembers } from "../sharedgoalSlice"
 export default function AddMember() {
 
-    const goalCatSelected = useSelector(state => state.sharedGoalReducer.selectedGoalCategory)
+    const goalCatSelected = useSelector(state => state.sharedGoalReducer.selectedGoalCategoryName)
     const goalNameFromStore = useSelector(state => state.sharedGoalReducer.goalName)
     const targetAmountFromStore = useSelector(state => state.sharedGoalReducer.targetAmount)
 

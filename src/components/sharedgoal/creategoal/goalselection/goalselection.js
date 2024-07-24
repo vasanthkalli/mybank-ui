@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
-import {setSelectedGoalCategory} from '../../sharedgoalSlice'
+import {setSelectedGoalCategory, setSelectedGoalCategoryName} from '../../sharedgoalSlice'
 
 
 export default function GoalSelection(props) {
@@ -26,6 +26,10 @@ export default function GoalSelection(props) {
         console.log(event.target.value)
         setSelectedGoal(event.target.value);
         dispatch(setSelectedGoalCategory(event.target.value))
+        let selectedGoalCat= goals.filter(goal => goal.id===event.target.value)
+        let selectedGoalCatName = selectedGoalCat.value;
+        dispatch(setSelectedGoalCategoryName(selectedGoalCatName))
+
     };
     return (
         <div>

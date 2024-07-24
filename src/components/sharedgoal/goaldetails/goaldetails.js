@@ -11,6 +11,8 @@ export default function GoalDetails() {
     const dispatch = useDispatch();
 
     const goalSelected = useSelector(state => state.sharedGoalReducer.selectedGoalCategory)
+    const goalCategoryNameSelected = useSelector(state => state.sharedGoalReducer.selectedGoalCategoryName)
+
     const goalNameFromStore = useSelector(state => state.sharedGoalReducer.goalName)
     const targetAmountFromStore = useSelector(state => state.sharedGoalReducer.targetAmount)
 
@@ -33,6 +35,7 @@ export default function GoalDetails() {
     const [goalNameError, setGoalNameError] = useState(false)
 
     const [targetAmountError, setTargetAmountErrot] = useState(false)
+
 
 
     useEffect(() => {
@@ -113,7 +116,7 @@ export default function GoalDetails() {
     return (
         <div id="goaldetails-outerdiv">
             {
-                proceed && goalSelected ? <p style={{ textAlign: 'center' }}>Selected Goal is {goalSelected}</p> : null
+                goalSelected ? <p style={{ textAlign: 'center' }}>Selected Goal Category is {goalCategoryNameSelected}</p> : null
             } {
                 proceed && goalNameFromStore ? <p style={{ textAlign: 'center' }}>Goal name given {goalNameFromStore}</p> : null
             }

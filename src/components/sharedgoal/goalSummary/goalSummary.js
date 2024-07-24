@@ -9,7 +9,7 @@ import axios from "axios";
 export default function GoalSummary() {
 
     const goalState = useSelector(state => state.sharedGoalReducer)
-    const { selectedGoalCategory, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected } = goalState;
+    const { selectedGoalCategory,selectedGoalCategoryName, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected } = goalState;
 
     const [openBackDrop, setOpenBackDrop] = useState(false)
 
@@ -46,7 +46,7 @@ export default function GoalSummary() {
         <div>
             <Grid container justifyContent={'center'} alignItems={'center'} flexDirection={'column'} spacing={2}>
                 <Grid item>
-                    <p>Goal category is {selectedGoalCategory}</p>
+                    <p>Goal category is {selectedGoalCategoryName}</p>
                 </Grid>
                 <Grid item>
                     <p>Goal name {goalName}</p>
