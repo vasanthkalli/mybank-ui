@@ -166,6 +166,7 @@ export default function CreateGoal() {
                                                 <GoalSelection goals={goals} />
                                             </div>
                                         ) : (null)}
+                                 
                                         {activeStep + 1 == 2 ? (
 
                                             <div>

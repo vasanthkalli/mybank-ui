@@ -21,10 +21,13 @@ export const sharedGoalSlice = createSlice({
     initialState,
     reducers: {
         setSelectedGoalCategory: (state, action) => {
-            state = state.selectedGoalCategory = action.payload
+            state.selectedGoalCategory = action.payload
+         
         },
         setSelectedGoalCategoryName: (state, action) => {
-            state = state.selectedGoalCategoryName = action.payload
+            let tempGoal =  initialState.goalCategories.filter(goal => goal.key == action.payload)
+            console.log('tempgoal', tempGoal)
+            state.selectedGoalCategoryName  = tempGoal.value
         },
         setGoalName: (state, action) => {
             state = state.goalName = action.payload

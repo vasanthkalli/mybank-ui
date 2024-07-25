@@ -105,3 +105,4 @@ npm i axios
  deploying into gcp
 
  1.enable cloud build API
+ 2.Enable Admin permissions to cloud build

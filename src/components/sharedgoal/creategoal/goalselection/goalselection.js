@@ -25,10 +25,8 @@ export default function GoalSelection(props) {
     const handleChange = (event) => {
         console.log(event.target.value)
         setSelectedGoal(event.target.value);
-        dispatch(setSelectedGoalCategory(event.target.value))
-        let selectedGoalCat= goals.filter(goal => goal.id===event.target.value)
-        let selectedGoalCatName = selectedGoalCat.value;
-        dispatch(setSelectedGoalCategoryName(selectedGoalCatName))
+      dispatch(setSelectedGoalCategory(event.target.value))
+       dispatch(setSelectedGoalCategoryName(event.target.value))
 
     };
     return (

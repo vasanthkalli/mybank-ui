@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Switch from '@mui/material/Switch'
 import {
     Button, FormControlLabel, Toolbar,
     Typography, MenuItem, Select, FormControl, InputLabel, Accordion, AccordionSummary, AccordionDetails, Snackbar, CircularProgress, Backdrop
@@ -41,6 +42,13 @@ function Login(props) {
 
     const [openBackDrop, setOpenBackdrop] = React.useState(false)
 
+    const [isMember, setIsMember] = React.useState(false)
+
+
+    const handleChangeCheckBox = (event) => {
+            setIsMember(event.target.checked)
+    }
+
     const handleUsername = (e) => {
         setusername(e.target.value);
     }
@@ -55,7 +63,8 @@ function Login(props) {
 
             let user = {
                 username: username,
-                password: password
+                password: password,
+                isMember: isMember
             }
 
             try {
@@ -109,6 +118,15 @@ function Login(props) {
                     <Grid id='maincontainer' container alignItems='center' justifyContent='center' spacing={4}>
                         <Grid item xs={12}>
                             <Typography variant='h3' component='p'>Welcome to Internet Banking</Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <p>Are you goal member ?</p> <Switch
+                                checked={isMember}
+                                onChange={handleChangeCheckBox}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                          
+                            />
+                          
                         </Grid>
                         <Grid item xs={12}>
                             <TextField id='userid' name='userid' variant='outlined' label='username' required style={{ width: '50%' }}

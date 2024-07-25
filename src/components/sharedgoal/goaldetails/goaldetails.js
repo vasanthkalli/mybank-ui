@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { setGoalName, setTargetAmount, setProceed, setinterestRateSelected, setselectedNumMonths} from "../sharedgoalSlice";
 import { Button, Switch, FormControlLabel } from "@mui/material";
 import './goaldetails.css'
+import axios from "axios";
 
 
 export default function GoalDetails() {
@@ -15,6 +16,8 @@ export default function GoalDetails() {
 
     const goalNameFromStore = useSelector(state => state.sharedGoalReducer.goalName)
     const targetAmountFromStore = useSelector(state => state.sharedGoalReducer.targetAmount)
+
+    const userDetails = useSelector(state => state.loginReducer.loggedInUser)
 
     const [goalName, setGoalNameState] = useState('')
 
@@ -80,8 +83,37 @@ export default function GoalDetails() {
             setProceedState(false)
             dispatch(setProceed(false))
         } else {
-            setProceedState(true)
-            dispatch(setProceed(true))
+            //save goal to the backend
+           let reqObj = {
+                username: userDetails.username,
+                phone:"8910983449",
+                email: "",
+                password:userDetails.password,
+                enabled:1,
+                goal:
+                {
+                    goalname: goalName,
+                    goalduration:selecedMonths,
+                    goalamount:targetAmount,
+                    amountpaid:0.00,
+                    interestadded:0.00,
+                    interestrate:interestRate,
+                    startdate:new Date()
+                }
+                
+            
+            }
+            try{
+                axios.post("https://shared-goal-tinknttuzq-uc.a.run.app/user/addUser",reqObj)
+                setProceedState(true)
+                dispatch(setProceed(true))
+            } catch(e){
+                console.log(e)
+                setProceedState(false)
+                dispatch(setProceed(false))
+            }
+            
+          
         }
 
     }
