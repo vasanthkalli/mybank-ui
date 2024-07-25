@@ -1,0 +1,50 @@
+REBOOT RAISERS
+Priyanka Banerjee
+Vasanth Kumar Kalli
+Pavani Chadalapaka
+Shalini Nandakumar
+Abhilas Padhy
+
+======================
+Problem Statement
+Problem:
+Customers should be able to share a financial goal with their near and dear ones helping them to keep away the hassle of miscommunication and safeguarding their integrity
+
+Supporting Data:
+A Bankrate(hyperlink) survey found that 43% of U.S. couples only use joint accounts
+https://www.bankrate.com/banking/reasons-for-married-couples-to-consider-separate-bank-accounts/#:~:text=Among%20U.S.%20couples%20who%20are%20married%2C%20in%20a%20civil%20partnership%20or%20live%20together%2C%2043%20percent%20have%20only%20joint%20bank%20accounts
+ 
+The Covid 19 pandemic, has increased finThe COVID-19 pandemic, for instance, increased financial stress for 33% of couples, making daily financial discussions more crucial than ever. 
+https://www.fidelity.com/bin-public/060_www_fidelity_com/documents/about-fidelity/Fidelity-Couples-and-Money-Fact-Sheet-2021.pdf
+
+
+Impact: 
+Clear communication
+Shared Decision making
+Shared accountability
+Supportive relationships
+Conflict resolution
+
+=========================
+Product Design
+
+
+
+Demo
+
+
+
+Potential Features
+- Shared goal can be of different categories:
+1. Timely withdrawal goal (For loans/ emis)
+2. Voluntary withdrawal (Vacation/emergency funds)
+3. One-time long term (Child education)
+ 
+- Admin can add a member at any point of time as long as the goal is active
+- Admin can add a member post appropriate authorization (OTP and bank verification)
+- Admin can remove member attached to the goal through appropriate agreement and authorization
+- A member can choose to exit the goal by adhering to the guidelines 
+	1. A member can only expect the amount credited by him in the most recent term to be returned(In case of EMI/Debt related goal) or the netire amount contributed by him(in case of 1 time withdrawal)
+	2. A member has to receive the authorization from the admin to be able to exit
+	
+- Every time there is a debit from the account, all the members should receive a notification with the details
