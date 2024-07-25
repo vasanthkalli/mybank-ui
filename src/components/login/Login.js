@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
+import Switch from '@mui/material/Switch'
 import {
     Button, FormControlLabel, Toolbar,
     Typography, MenuItem, Select, FormControl, InputLabel, Accordion, AccordionSummary, AccordionDetails, Snackbar, CircularProgress, Backdrop
@@ -41,6 +42,13 @@ function Login(props) {
 
     const [openBackDrop, setOpenBackdrop] = React.useState(false)
 
+    const [isMember, setIsMember] = React.useState(false)
+
+
+    const handleChangeCheckBox = (event) => {
+            setIsMember(event.target.checked)
+    }
+
     const handleUsername = (e) => {
         setusername(e.target.value);
     }
@@ -55,7 +63,8 @@ function Login(props) {
 
             let user = {
                 username: username,
-                password: password
+                password: password,
+                isMember: isMember
             }
 
             try {
@@ -111,6 +120,15 @@ function Login(props) {
                             <Typography variant='h3' component='p'>Welcome to Internet Banking</Typography>
                         </Grid>
                         <Grid item xs={12}>
+                          <p>Are you goal member ?</p> <Switch
+                                checked={isMember}
+                                onChange={handleChangeCheckBox}
+                                inputProps={{ 'aria-label': 'controlled' }}
+                          
+                            />
+                          
+                        </Grid>
+                        <Grid item xs={12}>
                             <TextField id='userid' name='userid' variant='outlined' label='username' required style={{ width: '50%' }}
                                 onChange={handleUsername} value={username} error={usernameError}
                             />
@@ -148,7 +166,7 @@ function Login(props) {
                                         aria-controls="panel1-content"
                                         id="panel1-header"
                                     >
-                                        <Typography variant="h6" >Help&Support</Typography>
+                                        <Typography variant="h6" style={{ color: '#006A4D' }}>Help&Support</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography style={{ fontWeight: 'bold', marginBottom: 5 }}>
@@ -170,9 +188,10 @@ function Login(props) {
                                 <Accordion>
                                     <AccordionSummary
                                         expandIcon={<ArrowDropDownIcon />}
-                                        aria-controls="panel2-content" id="panel2-header"
+                                        aria-controls="panel2-content"
+                                        id="panel2-header"
                                     >
-                                        <Typography variant='h6'>Contact Us</Typography>
+                                        <Typography variant='h6' style={{ color: '#006A4D' }}>Contact Us</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Typography style={{ fontWeight: 'bold', marginBottom: 5 }}>
