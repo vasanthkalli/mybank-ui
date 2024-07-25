@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
     goalCategories: [
@@ -8,6 +9,7 @@ const initialState = {
     selectedGoalCategory: 10,
     selectedGoalCategoryName: 'Dream Car',
     goalName: '',
+    goalId: '',
     targetAmount: 0,
     proceed: false,
     selectedNumMonths: 12,
@@ -16,6 +18,13 @@ const initialState = {
     IsmemberAdded: false
 }
 
+export const saveGoal = createAsyncThunk('users/saveGoal',
+    async(goal, headers) =>{
+        const response = await axios.post('https://goal-share-ganutbppla-uc.a.run.app/user/addUser',goal, headers)
+        return response.data
+    }
+
+)
 export const sharedGoalSlice = createSlice({
     name: 'sharedGoalSlice',
     initialState,
@@ -32,7 +41,6 @@ export const sharedGoalSlice = createSlice({
         setGoalName: (state, action) => {
             state = state.goalName = action.payload
         },
-
         setTargetAmount: (state, action) => {
             state = state.targetAmount = action.payload
         },
@@ -51,8 +59,15 @@ export const sharedGoalSlice = createSlice({
         setinterestRateSelected: (state, action) => {
             state = state.interestRateSelected = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(saveGoal.fulfilled, (state, action)=>{
+            const {goal} = action.payload
+            console.log(goal)
+            state.goalId=goal.goal_id
+        })
     }
 })
 
-export const { setSelectedGoalCategory, setSelectedGoalCategoryName, setGoalName, setTargetAmount, setProceed, setGoalmembers, setIsMembersAdded, setselectedNumMonths, setinterestRateSelected} = sharedGoalSlice.actions;
+export const { setSelectedGoalCategory, setSelectedGoalCategoryName, setGoalName, setTargetAmount, setProceed, setGoalmembers, setIsMembersAdded, setselectedNumMonths, setinterestRateSelected,setgoalId} = sharedGoalSlice.actions;
 export default sharedGoalSlice.reducer;

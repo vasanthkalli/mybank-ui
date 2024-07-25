@@ -10,6 +10,7 @@ export default function AddMember() {
     const goalCatSelected = useSelector(state => state.sharedGoalReducer.selectedGoalCategoryName)
     const goalNameFromStore = useSelector(state => state.sharedGoalReducer.goalName)
     const targetAmountFromStore = useSelector(state => state.sharedGoalReducer.targetAmount)
+    const goalId = useSelector(state => state.sharedGoalReducer.goalId)
 
     const [membername, setmembername] = useState('')
     const [email, setemail] = useState('')
@@ -42,12 +43,17 @@ export default function AddMember() {
             let tempArray = [
                 ...members
             ]
-            var id = "id" + Math.random().toString(16).slice(2)
+        
             let obj = {
-                id: id,
-                membername: membername,
+         
+                username: membername,
                 email: email,
-                mobilenumber: mobilenumber,
+                phone: mobilenumber,
+                password:"12345",
+                enabled:1,
+                goal: {
+                    id: goalId
+                }
             }
             if(!isMemberAlreadyAdded(obj, members)) {
                 tempArray.push(obj)
@@ -157,7 +163,7 @@ export default function AddMember() {
                             <th>Member Name </th> <th>Email </th> <th>Mobiel Number </th><th>Action</th>
                             {members.map(member => {
                                 return (
-                                    <tr><td>{member.membername}</td><td>{member.email}</td><td>{member.mobilenumber}</td><td><Button onClick={() => deleteRow(member.id)}>Delete</Button></td></tr>
+                                    <tr><td>{member.username}</td><td>{member.email}</td><td>{member.phone}</td><td><Button onClick={() => deleteRow(member.id)}>Delete</Button></td></tr>
                                 );
                             })
 

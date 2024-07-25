@@ -9,7 +9,7 @@ import axios from "axios";
 export default function GoalSummary() {
 
     const goalState = useSelector(state => state.sharedGoalReducer)
-    const { selectedGoalCategory,selectedGoalCategoryName, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected } = goalState;
+    const { selectedGoalCategory,selectedGoalCategoryName, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected, goalId } = goalState;
 
     const [openBackDrop, setOpenBackDrop] = useState(false)
 
@@ -20,16 +20,20 @@ export default function GoalSummary() {
 
     const submitGoal = async () => {
         setOpenBackDrop(true)
-        let requestBody = {
-            goal_name: goalName,
-            goal_duration: selectedNumMonths,
-            goal_amount: targetAmount,
-            interest_rate: interestRateSelected,
-            users: goalMembers,
-            start_date: new Date()
-        }
+       let requestBdy =  formRequestandRetun();
         try {
-            let response = await axios.post('https://shared-goal-tinknttuzq-em.a.run.app/goal/addgoal', requestBody)
+            const user = {
+                 authdata : window.btoa('vasanth' + ':' + 'vasanth')
+            }
+            
+            const headers = { 'Authorization': basicAuth(user) }
+
+            console.log('headers', headers)
+            
+           // let response = await axios.post('https://shared-goal-tinknttuzq-em.a.run.app/new/member/list/add', requestBody)
+           let response = await axios.post('http://localhost:8080/new/member/list/add', requestBdy, {headers: headers}
+
+           )
             console.log(response)
             setOpenBackDrop(false)
         } catch (e) {
@@ -37,6 +41,33 @@ export default function GoalSummary() {
             setOpenBackDrop(false)
         }
 
+    }
+
+    function basicAuth(user) {
+        return `Basic ${user.authdata}`
+      }
+
+    const formRequestandRetun = () => {
+        let tempArray = []
+        
+        goalMembers.forEach(element => {
+            let obj = {};
+            obj.username = element.username;
+            obj.userphone = element.phone;
+            obj.useremail = element.email;
+            obj.password = element.password;
+            obj.enabled = element.enabled;
+            obj.goal = {
+                goal_id: goalId
+            }
+            tempArray.push(obj)
+        });
+      
+        let requestBody = {
+            users:tempArray
+        }
+
+        return requestBody;
     }
 
     const handleClose = () => {

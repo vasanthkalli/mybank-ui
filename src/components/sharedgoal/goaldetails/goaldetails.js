@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Slider, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { setGoalName, setTargetAmount, setProceed, setinterestRateSelected, setselectedNumMonths} from "../sharedgoalSlice";
+import { setGoalName, setTargetAmount, setProceed, setinterestRateSelected, setselectedNumMonths, saveGoal} from "../sharedgoalSlice";
 import { Button, Switch, FormControlLabel } from "@mui/material";
+
 import './goaldetails.css'
 import axios from "axios";
 
@@ -41,6 +42,8 @@ export default function GoalDetails() {
 
 
 
+
+
     useEffect(() => {
         caalculateMonthyContribution();
     }, [selecedMonths, targetAmount])
@@ -70,7 +73,7 @@ export default function GoalDetails() {
     }
 
 
-    const setLooksGood = () => {
+    const setLooksGood = async () => {
 
         console.log('target amount', targetAmount)
 
@@ -104,7 +107,16 @@ export default function GoalDetails() {
             
             }
             try{
-                axios.post("https://shared-goal-tinknttuzq-uc.a.run.app/user/addUser",reqObj)
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                  }
+               // let resp= await axios.post("https://goal-share-ganutbppla-uc.a.run.app/user/addUser",reqObj, {headers:headers})
+                //const goal = resp.data.goal
+               // const {goal_id} = goal
+               // console.log(goal)
+               // dispatch(setGoalId(goal_id))
+                dispatch(saveGoal(reqObj, headers))
                 setProceedState(true)
                 dispatch(setProceed(true))
             } catch(e){

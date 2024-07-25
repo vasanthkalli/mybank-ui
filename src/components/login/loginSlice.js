@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
   loggedInUser: {
     username: '',
-    isMember: false,
+    isMember: true,
     token:'',
     expiryToken: ''
   },
