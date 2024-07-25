@@ -32,7 +32,7 @@ Product Design
 
 Demo
 
-
+https://mybank-ui-ganutbppla-uc.a.run.app/
 
 Potential Features
 - Shared goal can be of different categories:
