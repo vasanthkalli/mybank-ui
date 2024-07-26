@@ -38,6 +38,14 @@ Demo
 
 https://mybank-ui-ganutbppla-uc.a.run.app/
 
+GitHubLinks:
+Backend end: https://github.com/Priyanka-projects/goal-share
+CI/CD Branch: main
+
+FrontEnd:
+https://github.com/vasanthkalli/mybank-ui
+CI/CD Branch: master
+
 Potential Features
 - Shared goal can be of different categories:
 1. Timely withdrawal goal (For loans/ emis)
