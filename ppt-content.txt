@@ -8,7 +8,7 @@ Abhilas Padhy
 ======================
 Problem Statement
 Problem:
-Customers should be able to share a financial goal with their near and dear ones helping them to keep away the hassle of miscommunication and safeguarding their integrity
+Customers should be able to share their financial goals with loved ones, enabling those individuals to contribute and participate in the journey. This approach minimizes miscommunication and helps safeguard the integrity of the process.
 
 Supporting Data:
 A Bankrate(hyperlink) survey found that 43% of U.S. couples only use joint accounts
