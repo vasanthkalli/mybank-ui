@@ -10,6 +10,10 @@ Problem Statement
 Problem:
 Customers should be able to share their financial goals with loved ones, enabling those individuals to contribute and participate in the journey. This approach minimizes miscommunication and helps safeguard the integrity of the process.
 
+recording link
+
+https://drive.google.com/file/d/1Kr3xadhJ100fz1DIFhgoOtWMC4hC4SL4/view?usp=sharing
+
 Supporting Data:
 A Bankrate(hyperlink) survey found that 43% of U.S. couples only use joint accounts
 https://www.bankrate.com/banking/reasons-for-married-couples-to-consider-separate-bank-accounts/#:~:text=Among%20U.S.%20couples%20who%20are%20married%2C%20in%20a%20civil%20partnership%20or%20live%20together%2C%2043%20percent%20have%20only%20joint%20bank%20accounts
