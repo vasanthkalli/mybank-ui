@@ -23,15 +23,17 @@ export default function GoalSummary() {
        let requestBdy =  formRequestandRetun();
         try {
             const user = {
-                 authdata : window.btoa('vasanth' + ':' + 'vasanth')
+                 authdata : window.btoa('nilon' + ':' + '12345')
             }
             
-            const headers = { 'Authorization': basicAuth(user) }
+            const headers = { 'Authorization': basicAuth(user),
+                'Access-Control-Allow-Origin': '*'
+             }
 
             console.log('headers', headers)
-            
+           
            // let response = await axios.post('https://shared-goal-tinknttuzq-em.a.run.app/new/member/list/add', requestBody)
-           let response = await axios.post('http://localhost:8080/new/member/list/add', requestBdy, {headers: headers}
+           let response = await axios.post('https://goal-share-ganutbppla-uc.a.run.app/new/member/add', requestBdy, {headers: headers}
 
            )
             console.log(response)
@@ -92,7 +94,7 @@ export default function GoalSummary() {
                             <th>Member Name </th> <th>Email </th> <th>Mobiel Number </th>
                             {goalMembers.map(member => {
                                 return (
-                                    <tr><td>{member.membername}</td><td>{member.email}</td><td>{member.mobilenumber}</td></tr>
+                                    <tr><td>{member.username}</td><td>{member.email}</td><td>{member.phone}</td></tr>
                                 );
                             })
 

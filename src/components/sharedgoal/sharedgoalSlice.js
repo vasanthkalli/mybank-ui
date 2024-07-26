@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
+
     goalCategories: [
        {key: 10, value: 'Dream Car' }, { key: 20, value: 'Holiday' }, { key: 30, value: 'Gadgets' }, { key: 40, value: 'New Home' },
             { key: 50, value: 'Celebration' }, { key: 60, value: 'Emergrncy Fund' }
@@ -25,6 +26,8 @@ export const saveGoal = createAsyncThunk('users/saveGoal',
     }
 
 )
+
+
 export const sharedGoalSlice = createSlice({
     name: 'sharedGoalSlice',
     initialState,
