@@ -117,9 +117,10 @@ export default function AddMember() {
     }
 
 
-    const deleteRow = (id) => {
-        let filteredList = members.filter(member => member.id != id)
+   const deleteRow = (email) => {
+        let filteredList = members.filter(member => member.email != email)
         setmembers(filteredList)
+        dispatch(setGoalmembers(filteredList))
     }
     return (
         <div>
@@ -163,7 +164,7 @@ export default function AddMember() {
                             <th>Member Name </th> <th>Email </th> <th>Mobiel Number </th><th>Action</th>
                             {members.map(member => {
                                 return (
-                                    <tr><td>{member.username}</td><td>{member.email}</td><td>{member.phone}</td><td><Button onClick={() => deleteRow(member.id)}>Delete</Button></td></tr>
+                                    <tr><td>{member.username}</td><td>{member.email}</td><td>{member.phone}</td><td><Button onClick={() => deleteRow(member.email)}>Delete</Button></td></tr>
                                 );
                             })
 
