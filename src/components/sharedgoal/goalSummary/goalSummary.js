@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, Button } from "@mui/material";
+import { Box, Button,Snackbar,Alert } from "@mui/material";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
@@ -9,9 +9,11 @@ import axios from "axios";
 export default function GoalSummary() {
 
     const goalState = useSelector(state => state.sharedGoalReducer)
-    const { selectedGoalCategory,selectedGoalCategoryName, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected, goalId } = goalState;
+    const { selectedGoalCategory, selectedGoalCategoryName, goalName, targetAmount, goalMembers, selectedNumMonths, interestRateSelected, goalId } = goalState;
 
     const [openBackDrop, setOpenBackDrop] = useState(false)
+    const [snackbaropne, setSnackbarOpen] = useState(false)
+    const [goalSubmitted, setGoalSubmitted] = useState(false)
 
     useEffect(() => {
         console.log('inside goal summary')
@@ -20,38 +22,45 @@ export default function GoalSummary() {
 
     const submitGoal = async () => {
         setOpenBackDrop(true)
-       let requestBdy =  formRequestandRetun();
-        try {
-            const user = {
-                 authdata : window.btoa('nilon' + ':' + '12345')
-            }
-            
-            const headers = { 'Authorization': basicAuth(user),
-                'Access-Control-Allow-Origin': '*'
-             }
+        setSnackbarOpen(true)
+        setGoalSubmitted(true)
+        let requestBdy = formRequestandRetun();
+        // try {
+        //     const user = {
+        //          authdata : window.btoa('nilon' + ':' + '12345')
+        //     }
 
-            console.log('headers', headers)
-           
-           // let response = await axios.post('https://shared-goal-tinknttuzq-em.a.run.app/new/member/list/add', requestBody)
-           let response = await axios.post('https://goal-share-ganutbppla-uc.a.run.app/new/member/add', requestBdy, {headers: headers}
+        //     const headers = { 'Authorization': basicAuth(user),
+        //         'Access-Control-Allow-Origin': '*'
+        //      }
 
-           )
-            console.log(response)
-            setOpenBackDrop(false)
-        } catch (e) {
-            console.error("Error while sending the data")
-            setOpenBackDrop(false)
-        }
+        //     console.log('headers', headers)
+
+        //    // let response = await axios.post('https://shared-goal-tinknttuzq-em.a.run.app/new/member/list/add', requestBody)
+        //    let response = await axios.post('https://goal-share-ganutbppla-uc.a.run.app/new/member/add', requestBdy, {headers: headers}
+
+        //    )
+        //     console.log(response)
+        setOpenBackDrop(false)
+        //   } 
+        // catch (e) {
+        //     console.error("Error while sending the data")
+        //     setOpenBackDrop(false)
+        // }
 
     }
 
     function basicAuth(user) {
         return `Basic ${user.authdata}`
-      }
+    }
+
+    const handleCloseSnackBar = () => {
+        setSnackbarOpen(false)
+    }
 
     const formRequestandRetun = () => {
         let tempArray = []
-        
+
         goalMembers.forEach(element => {
             let obj = {};
             obj.username = element.username;
@@ -64,9 +73,9 @@ export default function GoalSummary() {
             }
             tempArray.push(obj)
         });
-      
+
         let requestBody = {
-            users:tempArray
+            users: tempArray
         }
 
         return requestBody;
@@ -103,7 +112,7 @@ export default function GoalSummary() {
                     </Box>
                 </Grid>
                 <Grid item>
-                    <Button onClick={submitGoal} variant="contained">Create Goal</Button>
+                    <Button onClick={submitGoal} variant={goalSubmitted ? "contained":"contained"} disabled={goalSubmitted ? true: false}>Create Goal</Button>
                     <Backdrop
                         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                         open={openBackDrop}
@@ -111,6 +120,18 @@ export default function GoalSummary() {
                     >
                         <CircularProgress color="inherit" />
                     </Backdrop>
+                    <div>
+                        <Snackbar open={snackbaropne} autoHideDuration={6000} onClose={handleCloseSnackBar}>
+                            <Alert
+                                onClose={handleCloseSnackBar}
+                                severity="success"
+                                variant="filled"
+                                sx={{ width: '100%' }}
+                            >
+                                Successfully Added Members to the Goal
+                            </Alert>
+                        </Snackbar>
+                    </div>
                 </Grid>
             </Grid>
         </div>
